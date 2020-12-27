@@ -1,12 +1,10 @@
-import { PreconditionContainerArray, Args, Command as BaseCommand, CommandOptions } from '@sapphire/framework';
+import { Args, Command as BaseCommand, CommandOptions } from '@sapphire/framework';
 import { PieceContext } from '@sapphire/pieces';
 import { Collection, Message } from 'discord.js';
 
 export abstract class SubberCommand<T = Args> extends BaseCommand<T> {
 
 	public subcommands: Collection<string, SubberCommand> | undefined;
-
-	public parentCommand?: SubberCommand;
 
 	/**
 	 * @since 1.0.0
@@ -16,10 +14,6 @@ export abstract class SubberCommand<T = Args> extends BaseCommand<T> {
 	protected constructor(context: PieceContext, { name, subcommands, ...options }: CommandOptions = {}) {
 		const pieceName = (name ?? context.name).toLowerCase();
 		super(context, { ...options, name: pieceName });
-
-		if (subcommands && subcommands.preconditions) {
-			(this.preconditions as PreconditionContainerArray).add(new PreconditionContainerArray(subcommands.preconditions));
-		}
 
 		this.context.subcommandsHandler.storeOptions({ ...options, name: pieceName, subcommands: subcommands ?? [] });
 	}
