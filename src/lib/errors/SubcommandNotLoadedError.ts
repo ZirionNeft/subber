@@ -2,7 +2,7 @@ import { SubberError, SubberErrorType } from './SubberError';
 
 
 /**
- * Describes a [[LoaderErrorType.EmptyModule]] loader error and adds a path for easy identification.
+ * Describes a [[SubberErrorType.NotLoaded]] subcommand error.
  */
 export class SubcommandNotLoadedError extends SubberError {
 

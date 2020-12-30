@@ -3,8 +3,8 @@ export const enum SubberErrorType {
 }
 
 /**
- * The UserError class to be emitted in the pieces.
- * @property name This will be `'UserError'` and can be used to distinguish the type of error when any error gets thrown
+ * The SubberError class to be emitted in the pieces.
+ * @property name This will be `'SubberError'` and can be used to distinguish the type of error when any error gets thrown
  */
 export class SubberError extends Error {
 
@@ -15,7 +15,7 @@ export class SubberError extends Error {
 	public readonly type: SubberErrorType;
 
 	/**
-	 * Constructs an UserError.
+	 * Constructs an SubberError.
 	 * @param type The identifier, useful to localize emitted errors.
 	 * @param message The error message.
 	 */

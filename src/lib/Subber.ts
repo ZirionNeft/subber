@@ -7,7 +7,7 @@ export class Subber extends Plugin {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	public static [postInitialization](this: SapphireClient, options: SapphireClientOptions): void {
-		Store.injectedContext.subcommandsHandler = new SubcommandsHandler(this);
+		Store.injectedContext.subcommandsHandler = new SubcommandsHandler(this, options.subber ?? {});
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -19,19 +19,38 @@ export class Subber extends Plugin {
 declare module '@sapphire/framework' {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	interface CommandOptions {
-		subcommands?: CommandOptions & {
-			name: string;
-		}[];
+		subcommands?: string[];
 	}
 
 	interface CommandContext {
-		resolvedSubcommand?: SubberCommand;
+		subcommandName?: string;
 	}
 
 	interface Command {
 		subcommands: Collection<string, SubberCommand> | undefined;
 	}
+
+	interface SapphireClientOptions {
+		subber?: SubberOptions;
+	}
 }
+
+export interface SubberOptions {
+	/**
+	 * Continue execution of parent command if command is disabled or error occurred
+	 * @since 1.0.0
+	 * @default false
+	 */
+	continueParent?: boolean;
+
+	/**
+	 * Run parent command when subcommand execution was ended
+	 * @since 1.0.0
+	 * @default false
+	 */
+	runParentAfterSubcommand?: boolean;
+}
+
 
 declare module '@sapphire/pieces' {
 	interface PieceContextExtras {
