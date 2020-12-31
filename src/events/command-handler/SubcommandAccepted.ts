@@ -1,6 +1,6 @@
 import { Args, CommandAcceptedPayload, Event, Events, PieceContext } from '@sapphire/framework';
 import { SubberEvents } from '@sapphire/plugin-subber';
-import { SubberCommand } from '../../structures/SubberCommand';
+import { SubberCommand } from '../..';
 
 export interface SubcommandAcceptedPayload extends CommandAcceptedPayload {
 	subcommand: SubberCommand;
