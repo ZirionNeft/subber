@@ -2,12 +2,38 @@ import { Args, CommandOptions, PreCommandRunPayload, PreconditionContainerArray,
 import { SubberCommand } from '../structures/SubberCommand';
 import { Collection } from 'discord.js';
 import { SubcommandNotLoadedError } from '../errors/SubcommandNotLoadedError';
-import { SubberOptions } from '../Subber';
 
 export type ResolveSubcommandPayload = Omit<PreCommandRunPayload, 'context'>;
 export interface ResolveSubcommandResult {
 	args: Args;
 	subcommand: SubberCommand | undefined;
+}
+
+
+export interface SubberOptions {
+	/**
+	 * Continue execution of parent command if command is disabled or error occurred
+	 * @since 1.0.0
+	 * @default false
+	 */
+	continueParent?: boolean;
+
+	/**
+	 * Run parent command when subcommand execution was ended
+	 * @since 1.0.0
+	 * @default false
+	 */
+	runParentAfterSubcommand?: boolean;
+}
+
+export const enum SubberEvents {
+	PreSubcommandRun = 'preCommandRun',
+	SubcommandDenied = 'subCommandDenied',
+	SubcommandAccepted = 'subcommandAccepted',
+	SubcommandRun = 'subcommandRun',
+	SubcommandSuccess = 'subcommandSuccess',
+	SubcommandError = 'subcommandError',
+	SubcommandFinish = 'subcommandFinish'
 }
 
 export class SubcommandsHandler {

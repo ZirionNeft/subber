@@ -11,11 +11,11 @@ export abstract class SubberCommand<T = Args> extends BaseCommand<T> {
 	 * @param context The context.
 	 * @param options Optional Command settings.
 	 */
-	protected constructor(context: PieceContext, { name, subcommands, ...options }: CommandOptions = {}) {
+	protected constructor(context: PieceContext, { name, ...options }: CommandOptions = {}) {
 		const pieceName = (name ?? context.name).toLowerCase();
 		super(context, { ...options, name: pieceName });
 
-		this.context.subcommandsHandler.storeOptions({ ...options, name: pieceName, subcommands: subcommands ?? [] });
+		this.context.subcommandsHandler.storeOptions({ ...options, name: pieceName, subcommands: options?.subcommands ?? [] });
 	}
 
 }
