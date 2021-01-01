@@ -27,7 +27,7 @@ export interface SubberOptions {
 }
 
 export const enum SubberEvents {
-	PreSubcommandRun = 'preCommandRun',
+	PreSubcommandRun = 'preSubcommandRun',
 	SubcommandDenied = 'subCommandDenied',
 	SubcommandAccepted = 'subcommandAccepted',
 	SubcommandRun = 'subcommandRun',
