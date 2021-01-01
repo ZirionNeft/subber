@@ -1,10 +1,10 @@
 import { Event, Events, isErr, PreCommandRunPayload, UserError } from '@sapphire/framework';
 import type { PieceContext } from '@sapphire/pieces';
-import { SubberEvents } from '@sapphire/plugin-subber';
+import { SubberEvents } from '../../lib/utils/SubcommandsHandler';
 
 export interface PreSubcommandPayload extends PreCommandRunPayload {}
 
-export class SubberEvent extends Event<SubberEvents.PreSubcommandRun> {
+export default class SubberEvent extends Event<SubberEvents.PreSubcommandRun> {
 
 	public constructor(context: PieceContext) {
 		super(context, { event: SubberEvents.PreSubcommandRun });
@@ -12,7 +12,11 @@ export class SubberEvent extends Event<SubberEvents.PreSubcommandRun> {
 
 	public async run({ message, command, parameters, context }: PreSubcommandPayload) {
 
-		const { subcommand, args } = await this.context.subcommandsHandler.resolveSubcommand({ command, message, parameters });
+		const { subcommand, args } = await this.context.subcommandsHandler.resolveSubcommand({
+			command,
+			message,
+			parameters
+		});
 
 		if (subcommand) {
 			if (!subcommand.enabled) {

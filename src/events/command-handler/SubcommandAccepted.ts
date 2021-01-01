@@ -1,13 +1,13 @@
 import { Args, CommandAcceptedPayload, Event, Events, PieceContext } from '@sapphire/framework';
-import { SubberEvents } from '@sapphire/plugin-subber';
-import { SubberCommand } from '../..';
+import { SubberCommand } from '../../lib/structures/SubberCommand';
+import { SubberEvents } from '../../lib/utils/SubcommandsHandler';
 
 export interface SubcommandAcceptedPayload extends CommandAcceptedPayload {
 	subcommand: SubberCommand;
 	args: Args;
 }
 
-export class SubberEvent extends Event<SubberEvents.SubcommandAccepted> {
+export default class SubberEvent extends Event<SubberEvents.SubcommandAccepted> {
 
 	public constructor(context: PieceContext) {
 		super(context, { event: SubberEvents.SubcommandAccepted });
